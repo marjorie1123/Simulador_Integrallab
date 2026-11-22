@@ -1,0 +1,759 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="IntegralLab - Simulador didáctico de integración numérica.">
+  <title>IntegralLab | Integración Numérica</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+<!-- ==========================================
+     PORTADA ANIMADA DE PRESENTACIÓN
+========================================== -->
+
+<section id="portada" class="portada">
+
+  <div class="fondo-cuadricula"></div>
+
+  <div class="orbe orbe-uno"></div>
+  <div class="orbe orbe-dos"></div>
+  <div class="orbe orbe-tres"></div>
+
+  <!-- Símbolos matemáticos en movimiento -->
+  <div class="simbolos" aria-hidden="true">
+    <span style="--x:8%;--y:12%;--d:0s">∫</span>
+    <span style="--x:83%;--y:13%;--d:1s">∑</span>
+    <span style="--x:12%;--y:65%;--d:2s">π</span>
+    <span style="--x:79%;--y:73%;--d:3s">∞</span>
+    <span style="--x:4%;--y:40%;--d:4s">dx</span>
+    <span style="--x:85%;--y:43%;--d:1.5s">f(x)</span>
+    <span style="--x:34%;--y:8%;--d:2.5s">∂</span>
+    <span style="--x:54%;--y:85%;--d:3.5s">Δ</span>
+  </div>
+
+  <!-- Partículas luminosas -->
+  <div class="particulas" aria-hidden="true">
+    <i style="--x:7%;--d:0s;--s:8s"></i>
+    <i style="--x:16%;--d:2s;--s:11s"></i>
+    <i style="--x:27%;--d:4s;--s:9s"></i>
+    <i style="--x:39%;--d:1s;--s:12s"></i>
+    <i style="--x:51%;--d:3s;--s:10s"></i>
+    <i style="--x:63%;--d:5s;--s:9s"></i>
+    <i style="--x:74%;--d:2s;--s:13s"></i>
+    <i style="--x:86%;--d:4s;--s:10s"></i>
+    <i style="--x:94%;--d:1s;--s:8s"></i>
+  </div>
+
+  <div class="portada-contenido">
+
+    <p class="universidad">
+      UNIVERSIDAD ESTATAL DE MILAGRO
+    </p>
+
+    <div class="emblema">
+      <div class="aro aro-uno"></div>
+      <div class="aro aro-dos"></div>
+      <span>∫</span>
+    </div>
+
+    <span class="portada-etiqueta">
+      COMPONENTE PRÁCTICO 2
+    </span>
+
+    <h1 class="portada-titulo">
+      INTEGRAL<span>LAB</span>
+    </h1>
+
+    <p class="portada-subtitulo">
+      SIMULADOR INTERACTIVO DE INTEGRACIÓN NUMÉRICA
+    </p>
+
+    <p class="portada-lema">
+      Explora · Calcula · Visualiza · Compara
+    </p>
+
+    <div class="linea-brillante"></div>
+
+    <!-- Cambia aquí los nombres -->
+    <div class="datos-portada">
+
+      <article class="dato">
+        <span>ASIGNATURA</span>
+        <strong>Análisis Matemático</strong>
+      </article>
+
+      <article class="dato">
+        <span>DOCENTE</span>
+        <strong>Nombre de la docente</strong>
+      </article>
+
+      <article class="dato">
+        <span>INTEGRANTES</span>
+        <strong>
+          Nombre de la estudiante 1<br>
+          Nombre de la estudiante 2
+        </strong>
+      </article>
+
+      <article class="dato">
+        <span>TEMA</span>
+        <strong>
+          Integración Numérica: Rectángulo,
+          Trapecio, Simpson 1/3 y Simpson 3/8
+        </strong>
+      </article>
+
+    </div>
+
+    <button type="button" id="btn-ingresar" class="boton-ingresar">
+      <span>INGRESAR AL SIMULADOR</span>
+      <span class="flecha">→</span>
+    </button>
+
+    <p class="portada-pie">
+      UNEMI · PROYECTO ACADÉMICO · 2026
+    </p>
+
+  </div>
+</section>
+
+<!-- ==========================================
+     SIMULADOR PRINCIPAL
+========================================== -->
+
+<div class="app" id="simulador">
+
+  <header class="cabecera">
+
+    <div class="marca">
+      <div class="marca-icono">∫</div>
+
+      <div>
+        <strong>Integral<span>Lab</span></strong>
+        <small>UNEMI · Análisis Matemático</small>
+      </div>
+    </div>
+
+    <span class="etiqueta-superior">
+      LABORATORIO INTERACTIVO
+    </span>
+
+  </header>
+
+  <!-- Bienvenida -->
+  <section class="bienvenida">
+
+    <div>
+      <span class="sobrelinea">
+        UNIDADES 3 Y 4 · INTEGRACIÓN NUMÉRICA
+      </span>
+
+      <h1>
+        Descubre el área <span>bajo la curva.</span>
+      </h1>
+
+      <p>
+        Experimenta con cuatro métodos de integración numérica.
+        Observa sus gráficas, modifica el número de subintervalos,
+        compara resultados y comprende cómo se aproxima una integral.
+      </p>
+    </div>
+
+    <div class="bienvenida-formula" aria-hidden="true">
+      ∫<sub>a</sub><sup>b</sup> f(x) dx
+    </div>
+
+  </section>
+
+  <main class="contenido">
+
+    <!-- ======================================
+         SECCIÓN 01 - DATOS DE ENTRADA
+    ====================================== -->
+    <section class="panel">
+
+      <div class="titulo-seccion">
+        <span class="numero">01</span>
+        <div>
+          <h2>Configura tu experimento</h2>
+          <p>Introduce los parámetros para calcular la integral.</p>
+        </div>
+      </div>
+
+      <form id="formulario" novalidate>
+
+        <div class="campos">
+
+          <div class="campo funcion-campo">
+            <label for="funcion">Función f(x)</label>
+            <input
+              id="funcion"
+              type="text"
+              value="x^2+2*x+1"
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <small>
+              Ejemplos: x^2+2*x+1, sin(x), cos(x),
+              exp(x), sqrt(x), ln(x).
+              Utiliza * para multiplicar.
+            </small>
+          </div>
+
+          <div class="campo">
+            <label for="limite-a">Límite inferior (a)</label>
+            <input id="limite-a" type="number" value="0" step="any">
+          </div>
+
+          <div class="campo">
+            <label for="limite-b">Límite superior (b)</label>
+            <input id="limite-b" type="number" value="4" step="any">
+          </div>
+
+          <div class="campo">
+            <label for="subintervalos">Subintervalos (n)</label>
+            <input id="subintervalos" type="number"
+                   value="6" min="1" max="120" step="1">
+          </div>
+
+        </div>
+
+        <fieldset class="metodos-opciones">
+          <legend>Selecciona el método de integración</legend>
+
+          <div class="opciones">
+            <label>
+              <input type="radio" name="metodo"
+                     value="rectangulo" checked>
+              Rectángulo
+            </label>
+
+            <label>
+              <input type="radio" name="metodo" value="trapecio">
+              Trapecio
+            </label>
+
+            <label>
+              <input type="radio" name="metodo" value="simpson13">
+              Simpson 1/3
+            </label>
+
+            <label>
+              <input type="radio" name="metodo" value="simpson38">
+              Simpson 3/8
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="acciones">
+
+          <button type="submit" class="btn btn-primario">
+            ▶ CALCULAR MÉTODO
+          </button>
+
+          <button type="button" id="comparar"
+                  class="btn btn-secundario">
+            ⇄ COMPARAR LOS 4 MÉTODOS
+          </button>
+
+          <button type="button" id="reiniciar"
+                  class="btn btn-transparente">
+            ↺ RESTABLECER
+          </button>
+
+        </div>
+      </form>
+
+      <div class="ejemplos">
+        <strong>Pruebas rápidas:</strong>
+
+        <button type="button" data-ejemplo="polinomio">
+          x² + 2x + 1
+        </button>
+
+        <button type="button" data-ejemplo="seno">
+          sen(x)
+        </button>
+
+        <button type="button" data-ejemplo="cubica">
+          Función cúbica
+        </button>
+
+        <button type="button" data-ejemplo="exponencial">
+          eˣ
+        </button>
+      </div>
+
+      <div class="mensaje" id="mensaje" role="status"
+           aria-live="polite">
+        Simulador listo para calcular.
+      </div>
+
+    </section>
+
+    <!-- ======================================
+         SECCIÓN 02 - RESULTADOS GENERALES
+    ====================================== -->
+    <section class="panel">
+
+      <div class="titulo-seccion">
+        <span class="numero">02</span>
+        <div>
+          <h2>Resultados generales</h2>
+          <p>Datos utilizados en el cálculo de la integral.</p>
+        </div>
+      </div>
+
+      <div class="indicadores">
+
+        <div class="indicador destacado">
+          <span>Función ingresada</span>
+          <strong id="mostrar-funcion">—</strong>
+        </div>
+
+        <div class="indicador">
+          <span>Intervalo [a, b]</span>
+          <strong id="mostrar-intervalo">—</strong>
+        </div>
+
+        <div class="indicador">
+          <span>Subintervalos (n)</span>
+          <strong id="mostrar-n">—</strong>
+        </div>
+
+        <div class="indicador">
+          <span>Tamaño de paso (h)</span>
+          <strong id="mostrar-h">—</strong>
+        </div>
+
+      </div>
+
+      <p class="nota">
+        Fórmula del tamaño de paso:
+        h = (b − a) / n
+      </p>
+
+    </section>
+
+    <!-- ======================================
+         SECCIÓN 03 - ANIMACIÓN PASO A PASO
+    ====================================== -->
+    <section class="panel">
+
+      <div class="titulo-seccion">
+        <span class="numero">03</span>
+        <div>
+          <h2>Construcción del área paso a paso</h2>
+          <p>Visualiza cómo se construyen las aproximaciones.</p>
+        </div>
+      </div>
+
+      <div class="explorador">
+
+        <div class="explorador-principal">
+
+          <p>
+            Mueve el deslizador para observar cómo aparecen
+            progresivamente los subintervalos de cada método.
+            Los resultados finales corresponden a todos los
+            subintervalos del cálculo.
+          </p>
+
+          <div class="barra-etiquetas">
+            <label for="progreso">
+              Subintervalos representados
+            </label>
+            <strong id="progreso-texto">6 de 6</strong>
+          </div>
+
+          <input
+            type="range"
+            id="progreso"
+            min="0"
+            max="6"
+            value="6"
+          >
+
+          <div class="controles-pasos">
+            <button type="button" id="anterior">← Anterior</button>
+            <button type="button" id="siguiente">Siguiente →</button>
+            <button type="button" id="mostrar-todos">Mostrar todos</button>
+          </div>
+
+        </div>
+
+        <div class="explicacion-paso">
+          <span>APRENDIZAJE VISUAL</span>
+          <strong id="paso-titulo">6 subintervalos</strong>
+          <p id="paso-descripcion">
+            Se visualizan todas las figuras de aproximación.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================
+         SECCIÓN 04 - LAS CUATRO GRÁFICAS
+    ====================================== -->
+    <section>
+
+      <div class="titulo-seccion titulo-exterior">
+        <span class="numero">04</span>
+        <div>
+          <h2>Gráficas de los cuatro métodos</h2>
+          <p>
+            La línea turquesa representa la función original.
+            Las figuras coloreadas muestran el área aproximada.
+          </p>
+        </div>
+      </div>
+
+      <div class="cuadricula-graficas">
+
+        <!-- RECTÁNGULO -->
+        <article class="panel tarjeta-grafica"
+                 data-metodo="rectangulo">
+
+          <div class="tarjeta-superior">
+            <span>MÉTODO 01</span>
+            <span class="estado" id="estado-rectangulo">
+              Disponible
+            </span>
+          </div>
+
+          <h3>Regla del Rectángulo</h3>
+
+          <p>
+            Utiliza rectángulos de altura constante,
+            evaluados en el extremo izquierdo
+            de cada subintervalo.
+          </p>
+
+          <div class="grafica-contenedor">
+            <canvas
+              id="grafica-rectangulo"
+              width="720"
+              height="420"
+              aria-label="Gráfica de rectángulos"
+            ></canvas>
+          </div>
+
+          <div class="resultado-grafica">
+            <span>Integral aproximada</span>
+            <strong id="resultado-rectangulo">—</strong>
+          </div>
+
+          <div class="formula-metodo">
+            I ≈ h · Σ f(xᵢ), i = 0, …, n − 1
+          </div>
+
+          <p class="detalle" id="detalle-rectangulo">
+            Cada rectángulo conserva su altura.
+          </p>
+
+        </article>
+
+        <!-- TRAPECIO -->
+        <article class="panel tarjeta-grafica"
+                 data-metodo="trapecio">
+
+          <div class="tarjeta-superior">
+            <span>MÉTODO 02</span>
+            <span class="estado" id="estado-trapecio">
+              Disponible
+            </span>
+          </div>
+
+          <h3>Regla del Trapecio</h3>
+
+          <p>
+            Une puntos consecutivos de la función
+            con segmentos rectos para formar trapecios.
+          </p>
+
+          <div class="grafica-contenedor">
+            <canvas
+              id="grafica-trapecio"
+              width="720"
+              height="420"
+              aria-label="Gráfica de trapecios"
+            ></canvas>
+          </div>
+
+          <div class="resultado-grafica">
+            <span>Integral aproximada</span>
+            <strong id="resultado-trapecio">—</strong>
+          </div>
+
+          <div class="formula-metodo">
+            I ≈ h/2 [f₀ + 2Σfᵢ + fₙ]
+          </div>
+
+          <p class="detalle" id="detalle-trapecio">
+            La aproximación sigue segmentos lineales.
+          </p>
+
+        </article>
+
+        <!-- SIMPSON 1/3 -->
+        <article class="panel tarjeta-grafica"
+                 data-metodo="simpson13">
+
+          <div class="tarjeta-superior">
+            <span>MÉTODO 03</span>
+            <span class="estado" id="estado-simpson13">
+              Disponible
+            </span>
+          </div>
+
+          <h3>Simpson 1/3</h3>
+
+          <p>
+            Utiliza interpolaciones parabólicas
+            sobre grupos de dos subintervalos.
+          </p>
+
+          <div class="grafica-contenedor">
+            <canvas
+              id="grafica-simpson13"
+              width="720"
+              height="420"
+              aria-label="Gráfica de Simpson un tercio"
+            ></canvas>
+          </div>
+
+          <div class="resultado-grafica">
+            <span>Integral aproximada</span>
+            <strong id="resultado-simpson13">—</strong>
+          </div>
+
+          <div class="formula-metodo">
+            I ≈ h/3 [f₀ + 4Σf(impar) +
+            2Σf(par interior) + fₙ]
+          </div>
+
+          <p class="detalle" id="detalle-simpson13">
+            Requiere que n sea par.
+          </p>
+
+        </article>
+
+        <!-- SIMPSON 3/8 -->
+        <article class="panel tarjeta-grafica"
+                 data-metodo="simpson38">
+
+          <div class="tarjeta-superior">
+            <span>MÉTODO 04</span>
+            <span class="estado" id="estado-simpson38">
+              Disponible
+            </span>
+          </div>
+
+          <h3>Simpson 3/8</h3>
+
+          <p>
+            Utiliza interpolaciones cúbicas
+            sobre grupos de tres subintervalos.
+          </p>
+
+          <div class="grafica-contenedor">
+            <canvas
+              id="grafica-simpson38"
+              width="720"
+              height="420"
+              aria-label="Gráfica de Simpson tres octavos"
+            ></canvas>
+          </div>
+
+          <div class="resultado-grafica">
+            <span>Integral aproximada</span>
+            <strong id="resultado-simpson38">—</strong>
+          </div>
+
+          <div class="formula-metodo">
+            I ≈ 3h/8 [f₀ + 3Σf(restantes) +
+            2Σf(múltiplos de 3 interiores) + fₙ]
+          </div>
+
+          <p class="detalle" id="detalle-simpson38">
+            Requiere que n sea múltiplo de tres.
+          </p>
+
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ======================================
+         SECCIÓN 05 - COMPARACIÓN
+    ====================================== -->
+    <section class="panel">
+
+      <div class="titulo-seccion">
+        <span class="numero">05</span>
+        <div>
+          <h2>Comparación de resultados</h2>
+          <p>
+            Compara las aproximaciones con una referencia numérica.
+          </p>
+        </div>
+      </div>
+
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr>
+              <th>Método</th>
+              <th>Integral aproximada</th>
+              <th>Diferencia absoluta</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-comparacion"></tbody>
+        </table>
+      </div>
+
+      <p class="nota" id="referencia">
+        Referencia numérica pendiente.
+      </p>
+
+      <div id="analisis" class="analisis">
+        Aquí aparecerá el análisis comparativo.
+      </div>
+
+    </section>
+
+    <!-- ======================================
+         SECCIÓN 06 - TABLA DE NODOS
+    ====================================== -->
+    <section class="panel">
+
+      <div class="titulo-seccion titulo-con-accion">
+        <span class="numero">06</span>
+        <div>
+          <h2>Tabla de nodos y coeficientes</h2>
+          <p>Valores xᵢ, f(xᵢ) y pesos utilizados.</p>
+        </div>
+
+        <button type="button" id="descargar"
+                class="btn btn-pequeno">
+          ↓ Descargar CSV
+        </button>
+      </div>
+
+      <div class="tabla-contenedor tabla-nodos">
+        <table>
+          <thead>
+            <tr>
+              <th>i</th>
+              <th>xᵢ</th>
+              <th>f(xᵢ)</th>
+              <th>Rectángulo</th>
+              <th>Trapecio</th>
+              <th>Simpson 1/3</th>
+              <th>Simpson 3/8</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-nodos"></tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ======================================
+         SECCIÓN 07 - FUNDAMENTOS DIDÁCTICOS
+    ====================================== -->
+    <section class="panel">
+
+      <div class="titulo-seccion">
+        <span class="numero">07</span>
+        <div>
+          <h2>Aprende integración numérica</h2>
+          <p>Fundamentos y conceptos importantes.</p>
+        </div>
+      </div>
+
+      <div class="tarjetas-aprendizaje">
+
+        <article>
+          <span class="icono-aprendizaje">∫</span>
+          <h3>¿Qué es la integración numérica?</h3>
+          <p>
+            Es el conjunto de técnicas que permiten
+            aproximar integrales definidas mediante
+            operaciones aritméticas y valores de una función.
+          </p>
+        </article>
+
+        <article>
+          <span class="icono-aprendizaje">h</span>
+          <h3>¿Qué representa h?</h3>
+          <p>
+            Es la anchura de cada subintervalo.
+            Se calcula mediante h = (b − a) / n.
+          </p>
+        </article>
+
+        <article>
+          <span class="icono-aprendizaje">▥</span>
+          <h3>¿Por qué cambian los resultados?</h3>
+          <p>
+            Los métodos emplean diferentes figuras:
+            rectángulos, trapecios, parábolas o polinomios cúbicos.
+          </p>
+        </article>
+
+        <article>
+          <span class="icono-aprendizaje">≈</span>
+          <h3>¿Qué método puede ser más preciso?</h3>
+          <p>
+            Para funciones suficientemente suaves,
+            Simpson suele ofrecer mayor precisión.
+            Sin embargo, depende de la función y del intervalo.
+          </p>
+        </article>
+
+        <article>
+          <span class="icono-aprendizaje">n</span>
+          <h3>Restricciones de Simpson</h3>
+          <p>
+            Simpson 1/3 requiere n par.
+            Simpson 3/8 necesita n múltiplo de tres.
+            El programa no altera automáticamente n.
+          </p>
+        </article>
+
+        <article>
+          <span class="icono-aprendizaje">±</span>
+          <h3>Área con signo</h3>
+          <p>
+            Las regiones sobre el eje x contribuyen
+            positivamente; las inferiores contribuyen
+            negativamente a la integral definida.
+          </p>
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="pie-pagina">
+    <strong>∫ IntegralLab</strong>
+    <p>Universidad Estatal de Milagro · UNEMI</p>
+    <p>Análisis Matemático · Componente Práctico 2 · 2026</p>
+    <p>Desarrollado con HTML, CSS y JavaScript.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
